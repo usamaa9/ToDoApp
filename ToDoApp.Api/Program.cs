@@ -1,6 +1,3 @@
-using MediatR;
-using ToDoApp.Application.Queries;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,10 +18,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/", async (IMediator mediator) =>
-{
-    var result = await mediator.Send(new HelloWorldQuery());
-    return Results.Ok(result);
-});
+app.MapGetHelloWorld();
 
 app.Run();
