@@ -9,7 +9,7 @@
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5178"
     },
-    "https": {
+    "ToDoApi": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
