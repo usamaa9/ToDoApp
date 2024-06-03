@@ -21,9 +21,9 @@ internal sealed class InMemoryToDoRepository : IToDoRepository
     }
 
     /// <inheritdoc/>
-    public Task<List<ToDo>> ListAsync()
+    public Task<IEnumerable<ToDo>> ListAsync()
     {
-        return Task.FromResult(_toDoItems);
+        return Task.FromResult((IEnumerable<ToDo>)_toDoItems);
     }
 
     /// <inheritdoc/>

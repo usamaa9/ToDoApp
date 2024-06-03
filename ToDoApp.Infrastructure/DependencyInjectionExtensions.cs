@@ -20,15 +20,16 @@ public static class DependencyInjectionExtensions
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <param name="configuration">The configuration.</param>
-    /// <param name="logger">The logger.</param>
     /// <returns>The updated service collection.</returns>
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, ILogger logger)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<MongoDbSettings>(configuration.GetSection("MongoDatabase"));
 
         var sp = services.BuildServiceProvider();
 
         var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+
+        var logger = sp.GetRequiredService<ILogger<MongoDbSettings>>();
 
         if (!settings.Enabled)
         {

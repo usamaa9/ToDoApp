@@ -21,9 +21,6 @@ Log.Logger = new LoggerConfiguration()
 // Add logging
 builder.Services.AddSerilog();
 
-var serviceProvider = builder.Services.BuildServiceProvider();
-var logger = serviceProvider.GetService<ILogger<Program>>();
-
 // Add services to the container. Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -64,7 +61,7 @@ builder.Services.AddFluentValidationAutoValidation(configuration =>
     configuration.OverrideDefaultResultFactoryWith<ValidationResultFactory>();
 });
 
-builder.Services.AddInfrastructure(builder.Configuration, logger!);
+builder.Services.AddInfrastructure(builder.Configuration);
 
 # endregion snippet_ConfigureServices
 

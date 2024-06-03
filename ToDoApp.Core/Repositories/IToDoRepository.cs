@@ -18,7 +18,7 @@ public interface IToDoRepository
     /// Retrieves a list of all ToDo items.
     /// </summary>
     /// <returns>A list of all ToDo items.</returns>
-    Task<List<ToDo>> ListAsync();
+    Task<IEnumerable<ToDo>> ListAsync();
 
     /// <summary>
     /// Adds a new ToDo item.
