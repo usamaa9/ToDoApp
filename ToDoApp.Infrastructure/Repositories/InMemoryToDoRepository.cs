@@ -4,11 +4,11 @@ using ToDoApp.Core.Repositories;
 namespace ToDoApp.Infrastructure.Repositories;
 
 /// <inheritdoc/>
-internal sealed class ToDoRepository : IToDoRepository
+internal sealed class InMemoryToDoRepository : IToDoRepository
 {
     private readonly List<ToDo> _toDoItems;
 
-    public ToDoRepository()
+    public InMemoryToDoRepository()
     {
         _toDoItems = [];
     }

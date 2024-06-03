@@ -7,6 +7,15 @@ using ToDoApp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+# region snippet_ConfigureServices
+
+// add config from appsettings.local.json
+builder.Configuration.AddJsonFile("appsettings.local.json", optional: true);
+
+builder.Services.AddLogging();
+var serviceProvider = builder.Services.BuildServiceProvider();
+var logger = serviceProvider.GetService<ILogger<Program>>();
+
 // Add services to the container. Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -38,7 +47,7 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssemblies(typeof(GetToDoQuery).Assembly);
 });
 
-builder.Services.AddScoped<IValidator<CreateToDoCommand>, CreateTodoCommandValidator>();
+builder.Services.AddScoped<IValidator<CreateToDoCommand>, CreateToDoCommandValidator>();
 
 // Add all validators from the application project
 builder.Services.AddFluentValidationAutoValidation(configuration =>
@@ -47,7 +56,11 @@ builder.Services.AddFluentValidationAutoValidation(configuration =>
     configuration.OverrideDefaultResultFactoryWith<ValidationResultFactory>();
 });
 
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration, logger!);
+
+# endregion snippet_ConfigureServices
+
+# region snippet_Configure
 
 var app = builder.Build();
 
@@ -59,3 +72,5 @@ app.UseSwaggerUI();
 app.MapAllEndpoints();
 
 app.Run();
+
+# endregion snippet_Configure
