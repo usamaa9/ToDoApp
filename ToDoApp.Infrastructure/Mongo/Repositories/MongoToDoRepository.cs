@@ -4,7 +4,7 @@ using MongoDB.Driver;
 using ToDoApp.Core.Entities;
 using ToDoApp.Core.Repositories;
 
-namespace ToDoApp.Infrastructure.Repositories.Mongo;
+namespace ToDoApp.Infrastructure.Mongo.Repositories;
 
 internal class MongoToDoRepository : IToDoRepository
 {

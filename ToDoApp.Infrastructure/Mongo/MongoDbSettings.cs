@@ -1,4 +1,4 @@
-﻿namespace ToDoApp.Infrastructure.Repositories.Mongo;
+﻿namespace ToDoApp.Infrastructure.Mongo;
 
 /// <summary>
 /// Represents the settings for MongoDB connection and database.

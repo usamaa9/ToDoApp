@@ -1,7 +1,7 @@
 ﻿using ToDoApp.Core.Entities;
 using ToDoApp.Core.Repositories;
 
-namespace ToDoApp.Infrastructure.Repositories;
+namespace ToDoApp.Infrastructure.InMemory;
 
 /// <inheritdoc/>
 internal sealed class InMemoryToDoRepository : IToDoRepository

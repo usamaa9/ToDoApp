@@ -4,8 +4,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using ToDoApp.Core.Repositories;
-using ToDoApp.Infrastructure.Repositories;
-using ToDoApp.Infrastructure.Repositories.Mongo;
+using ToDoApp.Infrastructure.InMemory;
+using ToDoApp.Infrastructure.Mongo;
+using ToDoApp.Infrastructure.Mongo.Repositories;
 
 namespace ToDoApp.Infrastructure;
 
