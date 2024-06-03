@@ -31,12 +31,12 @@ public static class DependencyInjectionExtensions
 
         if (!settings.Enabled)
         {
-            logger.LogWarning("Using in-memory repository.");
+            logger.LogWarning("Using in-memory for persistence.");
             services.AddSingleton<IToDoRepository, InMemoryToDoRepository>();
         }
         else
         {
-            logger.LogInformation("Using MongoDB repository.");
+            logger.LogInformation("Using MongoDB for persistence.");
             services.AddScoped<IToDoRepository, MongoToDoRepository>();
 
             services.AddScoped(serviceProvider =>

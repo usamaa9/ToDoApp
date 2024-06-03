@@ -36,20 +36,11 @@ public class ToDo(Guid id, string title, string description, DateTime dueDate, b
     public bool IsCompleted { get; private set; } = isCompleted;
 
     /// <summary>
-    /// Marks the ToDo item as complete.
+    /// Marks the ToDo item as completed or not completed.
     /// </summary>
-    public ToDo MarkComplete()
+    public ToDo SetIsCompleted(bool status)
     {
-        IsCompleted = true;
-        return this;
-    }
-
-    /// <summary>
-    /// Marks the ToDo item as incomplete.
-    /// </summary>
-    public ToDo MarkIncomplete()
-    {
-        IsCompleted = false;
+        IsCompleted = status;
         return this;
     }
 
@@ -59,11 +50,11 @@ public class ToDo(Guid id, string title, string description, DateTime dueDate, b
     /// <param name="title">The new title of the ToDo item.</param>
     /// <param name="description">The new description of the ToDo item.</param>
     /// <param name="dueDate">The new due date of the ToDo item.</param>
-    public ToDo UpdateDetails(string title, string description, DateTime dueDate)
+    public ToDo UpdateDetails(string? title, string? description, DateTime? dueDate)
     {
-        Title = title;
-        Description = description;
-        DueDate = dueDate;
+        Title = title ?? Title;
+        Description = description ?? Description;
+        DueDate = dueDate ?? DueDate;
         return this;
     }
 }

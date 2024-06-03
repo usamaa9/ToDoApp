@@ -1,5 +1,6 @@
 ﻿using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
 using ToDoApp.Application.Commands;
+using ToDoApp.Application.Requests;
 using ToDoApp.Application.Responses;
 
 namespace ToDoApp.Api;
@@ -48,9 +49,9 @@ public static class Endpoints
         .Produces(StatusCodes.Status404NotFound);
 
         // Update ToDo item
-        app.MapPut("/api/todo/{id:guid}", async (IMediator mediator, Guid id, UpdateToDoCommand command) =>
+        app.MapPut("/api/todo/{id:guid}", async (IMediator mediator, Guid id, UpdateToDoRequest request) =>
         {
-            command.Id = id;
+            var command = new UpdateToDoCommand(id, request.Title, request.Description, request.DueDate, request.IsComplete);
             var result = await mediator.Send(command);
             return result != null ? Results.Ok(result) : Results.NotFound();
         })

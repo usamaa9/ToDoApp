@@ -1,4 +1,5 @@
 using FluentValidation;
+using Serilog;
 using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
 using System.Reflection;
 using ToDoApp.Application.Commands;
@@ -12,7 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 // add config from appsettings.local.json
 builder.Configuration.AddJsonFile("appsettings.local.json", optional: true);
 
-builder.Services.AddLogging();
+// Configure Serilog for console logging
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+
+// Add logging
+builder.Services.AddSerilog();
+
 var serviceProvider = builder.Services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILogger<Program>>();
 
