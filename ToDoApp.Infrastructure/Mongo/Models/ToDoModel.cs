@@ -13,7 +13,7 @@ public class ToDoModel
     /// the unique identifier of the ToDo item.
     /// </summary>
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; set; }
 
     /// <summary>
