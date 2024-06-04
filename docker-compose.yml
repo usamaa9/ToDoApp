@@ -12,5 +12,15 @@ services:
       MONGO_INITDB_ROOT_USERNAME: myUserAdmin
       MONGO_INITDB_ROOT_PASSWORD: abc123
 
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+
 volumes:
   mongo-data:

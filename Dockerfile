@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ToDoApi/ToDoApi.csproj", "ToDoApi/"]
-RUN dotnet restore "./ToDoApi/ToDoApi.csproj"
+COPY ["ToDoApp.Api/ToDoApp.Api.csproj", "ToDoApp.Api/"]
+RUN dotnet restore "./ToDoApp.Api/ToDoApp.Api.csproj"
 COPY . .
-WORKDIR "/src/ToDoApi"
-RUN dotnet build "./ToDoApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/ToDoApp.Api"
+RUN dotnet build "./ToDoApp.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./ToDoApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./ToDoApp.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ToDoApi.dll"]
+ENTRYPOINT ["dotnet", "ToDoApp.Api.dll"]
