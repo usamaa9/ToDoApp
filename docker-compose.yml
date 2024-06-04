@@ -19,6 +19,12 @@ services:
     container_name: my-api
     ports:
       - "8080:8080"
+    environment:
+      MongoDatabase__ConnectionString: mongodb://myUserAdmin:abc123@mongo:27017
+      MongoDatabase__DatabaseName: ToDoAppDB
+      MongoDatabase__TodoCollectionName: ToDos
+      MongoDatabase__Enabled: true
+
     depends_on:
       - mongo
 

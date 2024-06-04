@@ -22,7 +22,7 @@
         </Content>
 
         <Content Update="appsettings.local.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </Content>
         <Content Update="appsettings.local.template.json">
