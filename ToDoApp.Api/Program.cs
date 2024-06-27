@@ -73,6 +73,17 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+// Redirect root URL to Swagger UI
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path == "/")
+    {
+        context.Response.Redirect("/swagger/index.html", permanent: true);
+        return;
+    }
+    await next();
+});
+
 // Map endpoints
 app.MapAllEndpoints();
 
