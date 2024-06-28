@@ -2,6 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using ToDoApp.Core.Repositories;
 using ToDoApp.Infrastructure.InMemory;
@@ -31,21 +34,19 @@ public static class DependencyInjectionExtensions
 
         var logger = sp.GetRequiredService<ILogger<MongoDbSettings>>();
 
-        if (!settings.Enabled)
+        if (settings.Enabled)
         {
-            logger.LogWarning("Using in-memory for persistence.");
-            services.AddSingleton<IToDoRepository, InMemoryToDoRepository>();
+            logger.LogInformation("Using MongoDB for persistence.");
+
+            BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.Binary));
+
+            services.AddSingleton(new MongoClient(settings.ConnectionString));
+            services.AddScoped<IToDoRepository, MongoToDoRepository>();
         }
         else
         {
-            logger.LogInformation("Using MongoDB for persistence.");
-            services.AddScoped<IToDoRepository, MongoToDoRepository>();
-
-            services.AddScoped(serviceProvider =>
-            {
-                var client = new MongoClient(settings.ConnectionString);
-                return client.GetDatabase(settings.DatabaseName);
-            });
+            logger.LogWarning("Using in-memory for persistence.");
+            services.AddSingleton<IToDoRepository, InMemoryToDoRepository>();
         }
 
         return services;

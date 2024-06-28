@@ -7,9 +7,9 @@ using ToDoApp.Infrastructure.Mongo.Models;
 
 namespace ToDoApp.Infrastructure.Mongo.Repositories;
 
-internal class MongoToDoRepository(IMongoDatabase mongoDatabase, IOptions<MongoDbSettings> options) : IToDoRepository
+internal class MongoToDoRepository(MongoClient mongoClient, IOptions<MongoDbSettings> options) : IToDoRepository
 {
-    private readonly IMongoCollection<ToDoModel> _repository = mongoDatabase.GetCollection<ToDoModel>(options.Value.TodoCollectionName);
+    private readonly IMongoCollection<ToDoModel> _repository = mongoClient.GetDatabase(options.Value.DatabaseName).GetCollection<ToDoModel>(options.Value.TodoCollectionName);
 
     public async Task AddAsync(ToDo toDo)
     {

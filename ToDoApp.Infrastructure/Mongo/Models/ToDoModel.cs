@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using ToDoApp.Core.Entities;
 
 namespace ToDoApp.Infrastructure.Mongo.Models;
@@ -13,7 +12,6 @@ public class ToDoModel
     /// the unique identifier of the ToDo item.
     /// </summary>
     [BsonId]
-    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; set; }
 
     /// <summary>
